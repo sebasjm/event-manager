@@ -181,7 +181,7 @@ public Set<Comment> getComments() {
             this.comments = Sets.newTreeSet(Comment.DATE_DESCENDING_COMPARATOR);
         }
 
-        @Override
+//        @Override
         public Event build() {
             return new Event(this);
         }

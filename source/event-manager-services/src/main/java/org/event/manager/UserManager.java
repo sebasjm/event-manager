@@ -32,65 +32,61 @@ import com.google.inject.Inject;
 @Path("/admin")
 public class UserManager {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(UserManager.class);
-	@Context
-	HttpServletRequest request;
-    
-	private final Repository dao;
-	private User user;
-	
-	@Inject
-	public UserManager(Repository dao,User user) {
-		this.dao = dao;
-		this.user = user;
-	}
+    private static final Logger log = LoggerFactory.getLogger(UserManager.class);
+    @Context
+    HttpServletRequest request;
+    private final Repository dao;
+    private User user;
 
-	@POST
-	@Path("/login")
-	@PerformanceLog
-	public String login(@FormParam("name") String name,
-			            @FormParam("password") String password) {
-		Map<String, Object> params = ImmutableMap.<String, Object>
-                of("name", name, "password", password);
-		String result = "succesful";
-		try {
-			user = dao.findUniqueByNamedQuery
-                    (User.FIND_BY_CREDENTIALS, params);
-			log.debug("getting user with id = {}", user.getId());
-			request.getSession().setAttribute("user", user);
-		} catch (NoResultException e) {
-			result = "fail";
-			log.debug("No se pudo loguear le usuario " + name, e);
-		}
-		return result;
-	}
+    @Inject
+    public UserManager(Repository dao, User user) {
+        this.dao = dao;
+        this.user = user;
+    }
 
-	@GET
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public User getUser(@PathParam("id") Long id) {
-		return dao.findById(User.class, id);
-	}
+    @POST
+    @Path("/login")
+    @PerformanceLog
+    public String login(@FormParam("name") String name,
+            @FormParam("password") String password) {
+        Map<String, Object> params = ImmutableMap.<String, Object>of("name", name, "password", password);
+        String result = "succesful";
+        try {
+            user = dao.findUniqueByNamedQuery(User.FIND_BY_CREDENTIALS, params);
+            log.debug("getting user with id = {}", user.getId());
+            request.getSession().setAttribute("user", user);
+        } catch (NoResultException e) {
+            result = "fail";
+            log.debug("No se pudo loguear le usuario " + name, e);
+        }
+        return result;
+    }
 
-	@GET
-	@Path("/users")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Wrapped(element = "users", prefix = "user")
-	public List<User> getUsers() {
-		return dao.findAllByClass(User.class);
-	}
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public User getUser(@PathParam("id") Long id) {
+        return dao.findById(User.class, id);
+    }
 
-	@DELETE
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public User removeUser(@PathParam("id") Long id) {
-		return dao.removeById(User.class, id);
-	}
+    @GET
+    @Path("/users")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Wrapped(element = "users", prefix = "user")
+    public List<User> getUsers() {
+        return dao.findAllByClass(User.class);
+    }
 
-	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void addUser(@Mapped User user) {
-		dao.persistNow(user);
-	}
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public User removeUser(@PathParam("id") Long id) {
+        return dao.removeById(User.class, id);
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void addUser(@Mapped User user) {
+        dao.persistNow(user);
+    }
 }

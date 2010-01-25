@@ -17,7 +17,7 @@ class EntityManagerProvider implements Provider<EntityManager> {
         factory = Persistence.createEntityManagerFactory(unit);
     }
 
-    @Override
+//    @Override
     public EntityManager get() {
         return factory.createEntityManager();
     }

@@ -136,7 +136,7 @@ public class Photo {
             this.uri = uri;
         }
 
-        @Override
+//        @Override
         public Photo build() {
             return new Photo(this);
         }

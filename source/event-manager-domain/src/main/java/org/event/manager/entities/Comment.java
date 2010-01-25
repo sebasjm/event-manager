@@ -115,7 +115,7 @@ public class Comment {
             this.when = Calendar.getInstance();
         }
 
-        @Override
+//        @Override
         public Comment build() {
             return new Comment(this);
         }
@@ -123,14 +123,14 @@ public class Comment {
 
     private static enum Comparators implements Comparator<Comment> {
         DATE_ASC() {
-            @Override
+//            @Override
             public int compare(Comment o1, Comment o2) {
                 Validate.notNull(o1);
                 Validate.notNull(o2);
                 return o1.getWhen().compareTo(o2.getWhen());
             }},
         USER_ASC() {
-            @Override
+//            @Override
             public int compare(Comment o1, Comment o2) {
                 Validate.notNull(o1);
                 Validate.notNull(o2);

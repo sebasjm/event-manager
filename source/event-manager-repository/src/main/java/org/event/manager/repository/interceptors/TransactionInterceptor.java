@@ -23,7 +23,7 @@ public class TransactionInterceptor implements MethodInterceptor {
      * @param arg0
      * @throws Throwable
      */
-    @Override
+//    @Override
     public Object invoke(MethodInvocation arg0) throws Throwable {
         Repository dao = (Repository) arg0.getThis();
         TransactionStrategy strategy = TransactionStrategy.NEW;

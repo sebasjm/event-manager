@@ -25,7 +25,7 @@ public class PerformanceInterceptor implements MethodInterceptor {
 	 * @param invocation
 	 * @throws Throwable
 	 */
-	@Override
+//	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		StopWatch watch = new StopWatch();
 		watch.start();

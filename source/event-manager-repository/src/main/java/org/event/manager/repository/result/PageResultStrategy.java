@@ -11,7 +11,7 @@ public class PageResultStrategy implements ResultStrategy{
 	public PageResultStrategy(int pageSize) {
 		this.pageSize = pageSize;
 	}
-	@Override
+//	@Override
 	@SuppressWarnings("unchecked")
 	public <T> T getResult(Query query) {
 		Validate.notNull(query);
